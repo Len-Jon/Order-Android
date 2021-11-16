@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="main_center_text_view" type="id"/>
+    <item name="main_left_text_view" type="id"/>
+    <item name="main_right_text_view" type="id"/>
+</resources>
