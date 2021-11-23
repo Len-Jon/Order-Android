@@ -7,17 +7,21 @@
     tools:context=".TabActivity">
 
     <com.google.android.material.tabs.TabLayout
+        android:layoutDirection="ltr"
         android:layout_gravity="top"
         android:id="@+id/tl_tab"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/purple_500" />
 
-    <androidx.viewpager.widget.ViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp_content"
+        android:layout_marginTop="48dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    </androidx.viewpager.widget.ViewPager>
+    </androidx.viewpager2.widget.ViewPager2>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

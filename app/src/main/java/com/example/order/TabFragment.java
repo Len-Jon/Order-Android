@@ -3,11 +3,14 @@ package com.example.order;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.order.adapter.CustomAdapter;
 import com.example.order.constant.Constant;
 import com.example.order.entity.Item;
 
@@ -28,6 +31,7 @@ public class TabFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private int subTypeId;
     private List<Item> itemList;
+    private RecyclerView recyclerView;
 
     public TabFragment() {
         // Required empty public constructor
@@ -51,7 +55,7 @@ public class TabFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             this.subTypeId = getArguments().getInt(SUB_TYPE);
-            itemList = Constant.itemList.parallelStream().filter(x -> x.getItemSubType() == this.subTypeId).collect(Collectors.toList());
+            itemList = Constant.itemList.stream().filter(x -> x.getItemSubType() == this.subTypeId).collect(Collectors.toList());
         }
     }
 
@@ -59,6 +63,11 @@ public class TabFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tab, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_tab, container, false);
+        recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView.setAdapter(new CustomAdapter(itemList));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        return view;
     }
 }

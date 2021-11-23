@@ -8,10 +8,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Base64;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -22,7 +20,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.order.constant.Constant;
 import com.example.order.entity.Item;
@@ -32,14 +29,7 @@ import com.example.order.util.HttpUtils;
 
 //import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
@@ -123,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                         imageViews[i].setImageBitmap(BitmapFactory.decodeByteArray(decodedStr, 0, decodedStr.length));
                         imageViews[i].setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                         imageViews[i].setOnClickListener(view -> {
-                            Intent intent = new Intent(view.getContext(), TabActivity.class).putExtra(Constant.ITEM_TYPE_KEY, itemType.getId());
+                            Intent intent = new Intent(view.getContext(), TabActivity.class).putExtra(Constant.ITEM_TYPE_ID_KEY, itemType.getId());
                             view.getContext().startActivity(intent);
                         });
                         textViews[i] = new TextView(mainActivity);

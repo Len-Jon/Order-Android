@@ -10,9 +10,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Constant {
-    public static final String ITEM_TYPE_KEY = "ITEM_TYPE_KEY";
-    public static final String ITEM_SUB_TYPE_KEY = "ITEM_TYPE_KEY";
-    public static final String ITEM_KEY = "ITEM_TYPE_KEY";
+    public static final String ITEM_TYPE_ID_KEY = "ITEM_TYPE_ID_KEY";
+    public static final String ITEM_SUB_TYPE_ID_KEY = "ITEM_SUB_TYPE_ID_KEY";
+    public static final String ITEM_ID_KEY = "ITEM_ID_KEY";
 
     public static List<ItemType> itemTypeList = null;
     public static List<ItemSubType> itemSubTypeList = null;
