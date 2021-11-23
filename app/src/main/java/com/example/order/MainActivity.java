@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +22,11 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.example.order.constant.Constant;
+import com.example.order.entity.Item;
+import com.example.order.entity.ItemSubType;
 import com.example.order.entity.ItemType;
+import com.example.order.util.HttpUtils;
 
 //import org.json.JSONObject;
 
@@ -33,13 +38,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
-    public List<ItemType> itemTypeList = new ArrayList<>();
+
 
     private static final String API_URI = "https://lenjon.top/test";
     private static final String ITEM_TYPE_URL = API_URI + "/item-type";
+    private static final String ITEM_SUB_TYPE_URL = API_URI + "/item-sub-type";
+    private static final String ITEM_URL = API_URI + "/item";
     private Handler handler;
 
     @SuppressLint("ResourceType")
@@ -48,37 +56,32 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar myToolbar = findViewById(R.id.toolbar);
-
         setSupportActionBar(myToolbar);
         handler = new MyHandler(Looper.myLooper(), MainActivity.this);
         new Thread(() -> {
-            try {
-                URL url = new URL(ITEM_TYPE_URL);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("GET");
-                conn.setReadTimeout(10000);
-                conn.setConnectTimeout(5000);
-                conn.connect();
-                InputStream inputStream = null;
-                BufferedReader reader = null;
-                if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    inputStream = conn.getInputStream();
-                    reader = new BufferedReader(new InputStreamReader(inputStream));
-                    String result = reader.readLine();
-                    JSONObject res = JSONObject.parseObject(result);
-                    JSONArray jsonArray = res.getJSONArray("data");
-                    itemTypeList = jsonArray.toJavaList(ItemType.class);
-                    handler.sendEmptyMessage(0);
-                }
-                if (reader != null)
-                    reader.close();
-                if (inputStream != null)
-                    inputStream.close();
-                conn.disconnect();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            JSONObject res = JSONObject.parseObject(HttpUtils.doGet(ITEM_TYPE_URL));
+            Constant.itemTypeList = res.getJSONArray("data").toJavaList(ItemType.class);
         }).start();
+        new Thread(() -> {
+            JSONObject res = JSONObject.parseObject(HttpUtils.doGet(ITEM_SUB_TYPE_URL));
+            Constant.itemSubTypeList = res.getJSONArray("data").toJavaList(ItemSubType.class);
+        }).start();
+        new Thread(() -> {
+            JSONObject  res = JSONObject.parseObject(HttpUtils.doGet(ITEM_URL));
+            Constant.itemList = res.getJSONArray("data").toJavaList(Item.class);
+        }).start();
+        for (int i = 0; i < 10; i++) {
+            if (Constant.itemTypeList != null && Constant.itemSubTypeList != null && Constant.itemList != null) {
+                handler.sendEmptyMessage(0);
+                return;
+            }
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                break;
+            }
+        }
+        Toast.makeText(MainActivity.this,"数据初始化错误",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -109,12 +112,12 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     //数据写入
                     RelativeLayout mainRelativeLayout = mainActivity.findViewById(R.id.main_relative_layout);
-                    int typeSize = mainActivity.itemTypeList.size();
+                    int typeSize = Constant.itemTypeList.size();
                     TextView[] textViews = new TextView[typeSize];
                     ImageView[] imageViews = new ImageView[typeSize];
                     for (int i = 0; i < typeSize; i++) {
                         imageViews[i] = new ImageView(mainActivity);
-                        ItemType itemType = mainActivity.itemTypeList.get(i);
+                        ItemType itemType = Constant.itemTypeList.get(i);
                         byte[] decodedStr = Base64.decode(itemType.getPic().substring(22), Base64.DEFAULT);
                         imageViews[i].setImageBitmap(BitmapFactory.decodeByteArray(decodedStr, 0, decodedStr.length));
                         imageViews[i].setScaleType(ImageView.ScaleType.CENTER_INSIDE);

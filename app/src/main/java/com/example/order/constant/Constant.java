@@ -12,6 +12,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class Constant {
-
-
+    public static List<ItemType> itemTypeList = null;
+    public static List<ItemSubType> itemSubTypeList = null;
+    public static List<Item> itemList = null;
 }
