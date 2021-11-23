@@ -1,6 +1,7 @@
 package com.example.order;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +11,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -42,8 +44,6 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
-
-
     private static final String API_URI = "https://lenjon.top/test";
     private static final String ITEM_TYPE_URL = API_URI + "/item-type";
     private static final String ITEM_SUB_TYPE_URL = API_URI + "/item-sub-type";
@@ -67,11 +67,12 @@ public class MainActivity extends AppCompatActivity {
             Constant.itemSubTypeList = res.getJSONArray("data").toJavaList(ItemSubType.class);
         }).start();
         new Thread(() -> {
-            JSONObject  res = JSONObject.parseObject(HttpUtils.doGet(ITEM_URL));
+            JSONObject res = JSONObject.parseObject(HttpUtils.doGet(ITEM_URL));
             Constant.itemList = res.getJSONArray("data").toJavaList(Item.class);
         }).start();
         for (int i = 0; i < 10; i++) {
             if (Constant.itemTypeList != null && Constant.itemSubTypeList != null && Constant.itemList != null) {
+                Constant.initMap();
                 handler.sendEmptyMessage(0);
                 return;
             }
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
         }
-        Toast.makeText(MainActivity.this,"数据初始化错误",Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, "数据初始化错误", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -121,6 +122,10 @@ public class MainActivity extends AppCompatActivity {
                         byte[] decodedStr = Base64.decode(itemType.getPic().substring(22), Base64.DEFAULT);
                         imageViews[i].setImageBitmap(BitmapFactory.decodeByteArray(decodedStr, 0, decodedStr.length));
                         imageViews[i].setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                        imageViews[i].setOnClickListener(view -> {
+                            Intent intent = new Intent(view.getContext(), TabActivity.class).putExtra(Constant.ITEM_TYPE_KEY, itemType.getId());
+                            view.getContext().startActivity(intent);
+                        });
                         textViews[i] = new TextView(mainActivity);
                         textViews[i].setText(itemType.getName());
                         textViews[i].setGravity(Gravity.CENTER);
