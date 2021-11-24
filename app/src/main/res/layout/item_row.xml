@@ -1,13 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/item_name_text_view"
-        android:layout_width="match_parent"
+    android:layout_marginTop="@dimen/cardview_default_elevation"
+    android:columnCount="2"
+    android:rowCount="1">
+    <!--图片大小128，因此paddingEnd="128dp"可以使用match_parent-->
+    <ImageView
+        android:id="@+id/item_img"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-     />
-</LinearLayout>
+        android:src="@drawable/juice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+        <LinearLayout
+            android:id="@+id/item_text_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingEnd="128dp">
+
+            <TextView
+                android:id="@+id/item_name_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Item_name"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/item_desc_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="This is description.\nThis is description."
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+</GridLayout>
