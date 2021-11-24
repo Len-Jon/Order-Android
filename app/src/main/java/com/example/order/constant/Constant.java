@@ -18,7 +18,7 @@ public class Constant {
     public static List<ItemSubType> itemSubTypeList = null;
     public static List<Item> itemList = null;
 
-    public static Map<Integer, Integer> itemCntMap;
+    public static Map<Integer, Integer> itemCntMap = new HashMap<>();
 
     public static void initMap() {
         itemCntMap = itemList.parallelStream().collect(Collectors.toMap(Item::getId, x -> 0));
