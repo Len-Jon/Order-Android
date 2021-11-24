@@ -23,12 +23,10 @@ import java.util.stream.Collectors;
  * create an instance of this fragment.
  */
 public class TabFragment extends Fragment {
+    private static final String SUB_TYPE_ID = "SUB_TYPE_ID";
+    private static final String TYPE_ID = "TYPE_ID";
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String SUB_TYPE = "SUB_TYPE";
-
-    // TODO: Rename and change types of parameters
+    private int typeId;
     private int subTypeId;
     private List<Item> itemList;
     private RecyclerView recyclerView;
@@ -38,14 +36,14 @@ public class TabFragment extends Fragment {
     }
 
     /**
-     *
      * @param subTypeId 子分类id
      * @return fragment
      */
-    public static TabFragment newInstance(Integer subTypeId) {
+    public static TabFragment newInstance(Integer typeId,Integer subTypeId) {
         TabFragment fragment = new TabFragment();
         Bundle args = new Bundle();
-        args.putInt(SUB_TYPE, subTypeId);
+        args.putInt(TYPE_ID, typeId);
+        args.putInt(SUB_TYPE_ID, subTypeId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,20 +52,33 @@ public class TabFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            this.subTypeId = getArguments().getInt(SUB_TYPE);
-            itemList = Constant.itemList.stream().filter(x -> x.getItemSubType() == this.subTypeId).collect(Collectors.toList());
+            this.typeId = getArguments().getInt(TYPE_ID);
+            this.subTypeId = getArguments().getInt(SUB_TYPE_ID);
+            if (subTypeId == 0) {
+                itemList = Constant.itemList.stream().filter(x -> x.getItemType() == this.typeId).collect(Collectors.toList());
+            } else {
+                itemList = Constant.itemList.stream().filter(x -> x.getItemSubType() == this.subTypeId).collect(Collectors.toList());
+            }
         }
     }
+
+    private LayoutInflater inflater;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
+        this.inflater = inflater;
         View view = inflater.inflate(R.layout.fragment_tab, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setAdapter(new CustomAdapter(itemList));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // TODO: 2021/11/24 更新选项的数字
     }
 }
