@@ -39,7 +39,7 @@ public class TabFragment extends Fragment {
      * @param subTypeId 子分类id
      * @return fragment
      */
-    public static TabFragment newInstance(Integer typeId,Integer subTypeId) {
+    public static TabFragment newInstance(Integer typeId, Integer subTypeId) {
         TabFragment fragment = new TabFragment();
         Bundle args = new Bundle();
         args.putInt(TYPE_ID, typeId);
@@ -76,9 +76,4 @@ public class TabFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        // TODO: 2021/11/24 更新选项的数字
-    }
 }

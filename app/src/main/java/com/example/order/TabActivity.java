@@ -21,7 +21,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TabActivity extends AppCompatActivity {
-    private int typeId;
+    public static final String BUNDLE_TYPE_ID_KEY = "BUNDLE_TYPE_ID_KEY";
+    private static int typeId = 0;
     private List<ItemSubType> subTypes;
     private List<Integer> subTypeIds;
 
@@ -33,12 +34,13 @@ public class TabActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
-
-        init();
+        if (savedInstanceState != null) {
+            init(savedInstanceState.getInt(BUNDLE_TYPE_ID_KEY));
+        } else {
+            init(TabActivity.typeId);
+        }
         initTab();
         initViewPager();
-
-
         new TabLayoutMediator(tabLayout, viewPager, true, (tab, position) -> tab.setText(subTypes.get(position).getName())).attach();
     }
 
@@ -48,17 +50,17 @@ public class TabActivity extends AppCompatActivity {
         return true;
     }
 
-    private void init() {
+    private void init(int defaultTypeId) {
         tabLayout = findViewById(R.id.tl_tab);
         viewPager = findViewById(R.id.vp_content);
 
         Intent intent = getIntent();
-        typeId = intent.getIntExtra(Constant.ITEM_TYPE_ID_KEY, 0);
-        subTypes = Constant.itemSubTypeList.stream().filter(x -> x.getItemType() == typeId).collect(Collectors.toList());
+        typeId = intent.getIntExtra(Constant.ITEM_TYPE_ID_KEY, defaultTypeId);
+        subTypes = Constant.itemSubTypeList.stream().filter(x -> x.getItemType() == TabActivity.typeId).collect(Collectors.toList());
         ItemSubType all = new ItemSubType();
         all.setId(0);
         all.setName("全部");
-        all.setItemType(typeId);
+        all.setItemType(TabActivity.typeId);
         subTypes.add(0, all);
         subTypeIds = subTypes.stream().map(ItemSubType::getId).collect(Collectors.toList());
     }
@@ -75,7 +77,7 @@ public class TabActivity extends AppCompatActivity {
             @NonNull
             @Override
             public Fragment createFragment(int position) {
-                return TabFragment.newInstance(typeId, subTypeIds.get(position));
+                return TabFragment.newInstance(TabActivity.typeId, subTypeIds.get(position));
             }
 
             @Override
@@ -83,5 +85,11 @@ public class TabActivity extends AppCompatActivity {
                 return subTypeIds.size();
             }
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putInt(BUNDLE_TYPE_ID_KEY, TabActivity.typeId);
+        super.onSaveInstanceState(outState);
     }
 }

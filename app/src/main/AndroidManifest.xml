@@ -12,9 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Order">
         <activity
+            android:name=".ItemDetailActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.order.TabActivity" />
+        </activity>
+        <activity
             android:name=".TabActivity"
             android:exported="true">
             <meta-data
+                android:launchMode="singleTop"
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.order.MainActivity" />
         </activity>

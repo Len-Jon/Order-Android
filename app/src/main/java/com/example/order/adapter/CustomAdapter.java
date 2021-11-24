@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.order.ItemDetailActivity;
 import com.example.order.R;
 import com.example.order.entity.Item;
 
@@ -27,7 +28,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public static final String ITEM_ID_KEY = "ITEM_ID_KEY";
         private final TextView itemNameTextView;
         private final TextView itemDescTextView;
         private final CustomAdapter customAdapter;
@@ -54,12 +56,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         public void onClick(View view) {
             int mPosition = getLayoutPosition();
             Item item = customAdapter.getItemList().get(mPosition);
-
-            Toast.makeText(view.getContext(), "new page", Toast.LENGTH_SHORT).show();
-
-//            Intent intent = new Intent(view.getContext(), DetailActivity.class);
-//            intent.putExtra(DETAIL_KEY, element);
-//            view.getContext().startActivity(intent);
+            Intent intent = new Intent(view.getContext(), ItemDetailActivity.class).putExtra(ITEM_ID_KEY,item.getId());
+            view.getContext().startActivity(intent);
         }
     }
 
