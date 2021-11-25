@@ -5,7 +5,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.order.adapter.ChosenItemListAdapter;
 import com.example.order.constant.Constant;
@@ -39,5 +41,9 @@ public class OrderListActivity extends AppCompatActivity {
         this.chosenList = Constant.getChosenList();
         this.chosenItemListAdapter.setItemList(this.chosenList);
         this.chosenItemListAdapter.notifyDataSetChanged();
+    }
+
+    public void check(View view) {
+        startActivity(new Intent(this, OrderCheckActivity.class));
     }
 }
