@@ -5,12 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.order.adapter.CustomAdapter;
+import com.example.order.adapter.ItemListAdapter;
 import com.example.order.constant.Constant;
 import com.example.order.entity.Item;
 
@@ -29,7 +29,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
         Intent intent = getIntent();
-        Optional<Item> itemOptional = Constant.itemList.stream().filter(x -> x.getId() == intent.getIntExtra(CustomAdapter.ViewHolder.ITEM_ID_KEY, 0)).findAny();
+        Optional<Item> itemOptional = Constant.itemList.stream().filter(x -> x.getId() == intent.getIntExtra(ItemListAdapter.ViewHolder.ITEM_ID_KEY, 0)).findAny();
         if (itemOptional.isPresent()) {
             this.item = itemOptional.get();
             TextView itemDetailNameTextView = findViewById(R.id.item_detail_name);
@@ -60,5 +60,11 @@ public class ItemDetailActivity extends AppCompatActivity {
             Constant.itemCntMap.put(item.getId(), cnt);
             cntTextView.setText(String.format(CNT_TEXT, cnt));
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 }

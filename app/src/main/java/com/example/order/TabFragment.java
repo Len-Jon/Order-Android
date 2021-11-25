@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.order.adapter.CustomAdapter;
+import com.example.order.adapter.ItemListAdapter;
 import com.example.order.constant.Constant;
 import com.example.order.entity.Item;
 
@@ -71,7 +71,7 @@ public class TabFragment extends Fragment {
         this.inflater = inflater;
         View view = inflater.inflate(R.layout.fragment_tab, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setAdapter(new CustomAdapter(itemList));
+        recyclerView.setAdapter(new ItemListAdapter(itemList));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         return view;
     }

@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +19,7 @@ import java.util.List;
 /**
  * 商品列表Fragment适配器
  */
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
+public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHolder> {
 
     private final List<Item> itemList;
 
@@ -32,14 +31,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         public static final String ITEM_ID_KEY = "ITEM_ID_KEY";
         private final TextView itemNameTextView;
         private final TextView itemDescTextView;
-        private final CustomAdapter customAdapter;
+        private final ItemListAdapter itemListAdapter;
 
-        public ViewHolder(View view, CustomAdapter customAdapter) {
+        public ViewHolder(View view, ItemListAdapter itemListAdapter) {
             super(view);
             // Define click listener for the ViewHolder's View
             itemNameTextView = view.findViewById(R.id.item_name_text_view);
             itemDescTextView = view.findViewById(R.id.item_desc_text_view);
-            this.customAdapter = customAdapter;
+            this.itemListAdapter = itemListAdapter;
             view.setOnClickListener(this);
         }
 
@@ -55,7 +54,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         @Override
         public void onClick(View view) {
             int mPosition = getLayoutPosition();
-            Item item = customAdapter.getItemList().get(mPosition);
+            Item item = itemListAdapter.getItemList().get(mPosition);
             Intent intent = new Intent(view.getContext(), ItemDetailActivity.class).putExtra(ITEM_ID_KEY,item.getId());
             view.getContext().startActivity(intent);
         }
@@ -67,7 +66,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
      * @param dataSet String[] containing the data to populate views to be used
      *                by RecyclerView.
      */
-    public CustomAdapter(List<Item> dataSet) {
+    public ItemListAdapter(List<Item> dataSet) {
         itemList = dataSet;
     }
 
