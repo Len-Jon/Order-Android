@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String ITEM_TYPE_URL = API_URI + "/item-type";
     private static final String ITEM_SUB_TYPE_URL = API_URI + "/item-sub-type";
     private static final String ITEM_URL = API_URI + "/item";
-    private Handler handler;
 
     @SuppressLint("ResourceType")
     @Override
@@ -49,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
-        handler = new MyHandler(Looper.myLooper(), MainActivity.this);
+        Handler handler = new MyHandler(Looper.myLooper(), MainActivity.this);
         new Thread(() -> {
             JSONObject res = JSONObject.parseObject(HttpUtils.doGet(ITEM_TYPE_URL));
             Constant.itemTypeList = res.getJSONArray("data").toJavaList(ItemType.class);

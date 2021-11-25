@@ -51,10 +51,12 @@ public class TabActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         return MenuUtil.onOptionsItemSelected(this, item);
     }
+
     private void init(int defaultTypeId) {
         tabLayout = findViewById(R.id.tl_tab);
         viewPager = findViewById(R.id.vp_content);

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_remove_cnt"
+        android:orderInCategory="10"
+        android:title="删除"
+        android:icon="@drawable/ic_settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_modify_cnt"
+        android:orderInCategory="20"
+        android:title="修改"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="never" />
+</menu>

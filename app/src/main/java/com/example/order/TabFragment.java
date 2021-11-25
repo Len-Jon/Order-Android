@@ -29,7 +29,6 @@ public class TabFragment extends Fragment {
     private int typeId;
     private int subTypeId;
     private List<Item> itemList;
-    private RecyclerView recyclerView;
 
     public TabFragment() {
         // Required empty public constructor
@@ -62,15 +61,12 @@ public class TabFragment extends Fragment {
         }
     }
 
-    private LayoutInflater inflater;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        this.inflater = inflater;
         View view = inflater.inflate(R.layout.fragment_tab, container, false);
-        recyclerView = view.findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setAdapter(new ItemListAdapter(itemList));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         return view;

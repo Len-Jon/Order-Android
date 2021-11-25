@@ -1,10 +1,5 @@
 package com.example.order;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +9,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.order.adapter.ItemListAdapter;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.order.constant.Constant;
 import com.example.order.entity.Item;
 import com.example.order.util.MenuUtil;
@@ -54,15 +52,16 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     protected void onResume() {
         super.onResume();
-        this.cntTextView.setText(String.format(CNT_TEXT, Constant.itemCntMap.getOrDefault(item.getId(), 0)));
+        this.cntTextView.setText(String.format(CNT_TEXT, Constant.getItemCnt(item.getId())));
     }
 
     @SuppressLint("DefaultLocale")
     public void addCnt(View view) {
-        int cnt = Constant.itemCntMap.getOrDefault(item.getId(), 0);
+        int cnt = Constant.getItemCnt(item.getId());
         cnt++;
         Constant.itemCntMap.put(item.getId(), cnt);
         cntTextView.setText(String.format(CNT_TEXT, cnt));
@@ -70,7 +69,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     @SuppressLint("DefaultLocale")
     public void minusCnt(View view) {
-        int cnt = Constant.itemCntMap.getOrDefault(item.getId(), 0);
+        int cnt = Constant.getItemCnt(item.getId());
         cnt--;
         if (cnt < 0) {
             Toast.makeText(this, "数量不能小于0", Toast.LENGTH_SHORT).show();
