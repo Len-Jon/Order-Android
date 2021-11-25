@@ -20,7 +20,6 @@ import com.example.order.util.MenuUtil;
 import java.util.Optional;
 
 public class ItemDetailActivity extends AppCompatActivity {
-    public static final String ITEM_ID_KEY = "ITEM_ID_KEY";
     public static final String FROM_ORDER_LIST_KEY = "FROM_ORDER_LIST_KEY";
     private Item item;
     private TextView cntTextView;
@@ -39,7 +38,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             actionBar.setHomeButtonEnabled(false);
             actionBar.setDisplayHomeAsUpEnabled(false);
         }
-        Optional<Item> itemOptional = Constant.itemList.stream().filter(x -> x.getId() == intent.getIntExtra(ItemDetailActivity.ITEM_ID_KEY, 0)).findAny();
+        Optional<Item> itemOptional = Constant.itemList.stream().filter(x -> x.getId() == intent.getIntExtra(Constant.ITEM_ID_KEY, 0)).findAny();
         if (itemOptional.isPresent()) {
             this.item = itemOptional.get();
             TextView itemDetailNameTextView = findViewById(R.id.item_detail_name);

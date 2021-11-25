@@ -13,6 +13,8 @@ public class Constant {
     public static final String ITEM_TYPE_ID_KEY = "ITEM_TYPE_ID_KEY";
     public static final String ITEM_SUB_TYPE_ID_KEY = "ITEM_SUB_TYPE_ID_KEY";
     public static final String ITEM_ID_KEY = "ITEM_ID_KEY";
+    public static String ADDRESS = null;
+    public static Integer PAY_METHOD_INDEX = null;
 
     public static List<ItemType> itemTypeList = null;
     public static List<ItemSubType> itemSubTypeList = null;

@@ -63,7 +63,7 @@ public class ChosenItemListAdapter extends RecyclerView.Adapter<ChosenItemListAd
             int mPosition = getLayoutPosition();
             Item item = itemListAdapter.getItemList().get(mPosition);
             Intent intent = new Intent(view.getContext(), ItemDetailActivity.class)
-                    .putExtra(ItemDetailActivity.ITEM_ID_KEY, item.getId())
+                    .putExtra(Constant.ITEM_ID_KEY, item.getId())
                     .putExtra(ItemDetailActivity.FROM_ORDER_LIST_KEY, true);
             view.getContext().startActivity(intent);
         }

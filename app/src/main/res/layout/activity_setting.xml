@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".SettingActivity">
+
+    <TextView
+        android:id="@+id/setting_addr_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minHeight="48dp"
+        android:text="配送地址："
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/setting_addr_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints="Address"
+        android:ems="10"
+        android:hint="Address"
+        android:inputType="textPostalAddress"
+        android:minHeight="48dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/setting_addr_label"
+        app:layout_constraintStart_toEndOf="@+id/setting_addr_label" />
+
+    <TextView
+        android:id="@+id/setting_pay_method_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minHeight="48dp"
+        android:text="支付方式："
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/setting_addr_label"
+        app:layout_constraintTop_toBottomOf="@id/setting_addr_label" />
+
+    <Spinner
+        android:id="@+id/setting_pay_method_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/pay_method_array_list"
+        app:layout_constraintBaseline_toBaselineOf="@+id/setting_pay_method_label"
+        app:layout_constraintStart_toStartOf="@+id/setting_addr_text" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="确认"
+        android:textSize="20sp"
+        android:onClick="confirm"
+        app:layout_constraintStart_toStartOf="@+id/setting_pay_method_label"
+        app:layout_constraintTop_toBottomOf="@+id/setting_pay_method_label" />
+</androidx.constraintlayout.widget.ConstraintLayout>

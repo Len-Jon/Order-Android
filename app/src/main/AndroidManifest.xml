@@ -12,6 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Order">
         <activity
+            android:name=".SettingActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:launchMode="singleTop"
+                android:value="com.example.order.MainActivity" />
+        </activity>
+        <activity
             android:name=".OrderCheckActivity"
             android:exported="true">
             <meta-data

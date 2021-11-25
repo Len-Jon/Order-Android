@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.order.ItemDetailActivity;
 import com.example.order.R;
+import com.example.order.constant.Constant;
 import com.example.order.entity.Item;
 
 import java.util.List;
@@ -55,7 +56,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
             int mPosition = getLayoutPosition();
             Item item = itemListAdapter.getItemList().get(mPosition);
             Intent intent = new Intent(view.getContext(), ItemDetailActivity.class)
-                    .putExtra(ItemDetailActivity.ITEM_ID_KEY, item.getId());
+                    .putExtra(Constant.ITEM_ID_KEY, item.getId());
             view.getContext().startActivity(intent);
         }
     }
