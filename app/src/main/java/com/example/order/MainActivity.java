@@ -10,6 +10,7 @@ import android.os.Message;
 import android.util.Base64;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -26,6 +27,7 @@ import com.example.order.entity.Item;
 import com.example.order.entity.ItemSubType;
 import com.example.order.entity.ItemType;
 import com.example.order.util.HttpUtils;
+import com.example.order.util.MenuUtil;
 
 //import org.json.JSONObject;
 
@@ -79,6 +81,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return MenuUtil.onOptionsItemSelected(this, item);
     }
 
     /**

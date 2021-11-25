@@ -3,6 +3,7 @@ package com.example.order;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.order.constant.Constant;
 import com.example.order.entity.ItemSubType;
+import com.example.order.util.MenuUtil;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -49,7 +51,10 @@ public class TabActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return MenuUtil.onOptionsItemSelected(this, item);
+    }
     private void init(int defaultTypeId) {
         tabLayout = findViewById(R.id.tl_tab);
         viewPager = findViewById(R.id.vp_content);

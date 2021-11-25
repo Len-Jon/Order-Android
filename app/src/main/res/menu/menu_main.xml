@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.myapplication.MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_contact"
+        android:id="@+id/action_order"
         android:orderInCategory="100"
         android:title="购物车"
         android:icon="@drawable/ic_shopping_card"
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_order"
+        android:id="@+id/action_setting"
         android:orderInCategory="10"
         android:title="设置"
         android:icon="@drawable/ic_settings"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_status"
+        android:id="@+id/action_search"
         android:orderInCategory="20"
         android:title="搜索"
         android:icon="@drawable/ic_search"

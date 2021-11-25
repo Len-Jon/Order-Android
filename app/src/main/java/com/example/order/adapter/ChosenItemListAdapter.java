@@ -12,16 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.order.ItemDetailActivity;
 import com.example.order.R;
+import com.example.order.constant.Constant;
 import com.example.order.entity.Item;
 
 import java.util.List;
 
 /**
- * 商品列表Fragment适配器
+ * 购物车列表Fragment适配器
  */
-public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHolder> {
+public class ChosenItemListAdapter extends RecyclerView.Adapter<ChosenItemListAdapter.ViewHolder> {
 
-    private final List<Item> itemList;
+    private List<Item> itemList;
 
     /**
      * Provide a reference to the type of views that you are using
@@ -29,14 +30,14 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
      */
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView itemNameTextView;
-        private final TextView itemDescTextView;
-        private final ItemListAdapter itemListAdapter;
+        private final TextView itemCountTextView;
+        private final ChosenItemListAdapter itemListAdapter;
 
-        public ViewHolder(View view, ItemListAdapter itemListAdapter) {
+        public ViewHolder(View view, ChosenItemListAdapter itemListAdapter) {
             super(view);
             // Define click listener for the ViewHolder's View
-            itemNameTextView = view.findViewById(R.id.item_name_text_view);
-            itemDescTextView = view.findViewById(R.id.item_desc_text_view);
+            itemNameTextView = view.findViewById(R.id.chosen_name_text_view);
+            itemCountTextView = view.findViewById(R.id.chosen_cnt_text_view);
             this.itemListAdapter = itemListAdapter;
             view.setOnClickListener(this);
         }
@@ -45,8 +46,8 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
             return itemNameTextView;
         }
 
-        public TextView getItemDescTextView() {
-            return itemDescTextView;
+        public TextView getItemCountTextView() {
+            return itemCountTextView;
         }
 
         @SuppressLint("NonConstantResourceId")
@@ -55,7 +56,8 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
             int mPosition = getLayoutPosition();
             Item item = itemListAdapter.getItemList().get(mPosition);
             Intent intent = new Intent(view.getContext(), ItemDetailActivity.class)
-                    .putExtra(ItemDetailActivity.ITEM_ID_KEY, item.getId());
+                    .putExtra(ItemDetailActivity.ITEM_ID_KEY, item.getId())
+                    .putExtra(ItemDetailActivity.FROM_ORDER_LIST_KEY, true);
             view.getContext().startActivity(intent);
         }
     }
@@ -66,7 +68,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
      * @param dataSet String[] containing the data to populate views to be used
      *                by RecyclerView.
      */
-    public ItemListAdapter(List<Item> dataSet) {
+    public ChosenItemListAdapter(List<Item> dataSet) {
         itemList = dataSet;
     }
 
@@ -76,7 +78,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item_row, viewGroup, false);
+                .inflate(R.layout.chosen_item_row, viewGroup, false);
         return new ViewHolder(view, this);
     }
 
@@ -86,8 +88,9 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.getItemNameTextView().setText(itemList.get(position).getName());
-        viewHolder.getItemDescTextView().setText(itemList.get(position).getDescription());
+        Item item = itemList.get(position);
+        viewHolder.getItemNameTextView().setText(item.getName());
+        viewHolder.getItemCountTextView().setText(String.valueOf(Constant.itemCntMap.getOrDefault(item.getId(), 0)));
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -98,5 +101,9 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
 
     public List<Item> getItemList() {
         return itemList;
+    }
+
+    public void setItemList(List<Item> dataset){
+        itemList = dataset;
     }
 }

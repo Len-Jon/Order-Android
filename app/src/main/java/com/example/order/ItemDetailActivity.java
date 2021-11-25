@@ -1,11 +1,15 @@
 package com.example.order;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,13 +17,14 @@ import android.widget.Toast;
 import com.example.order.adapter.ItemListAdapter;
 import com.example.order.constant.Constant;
 import com.example.order.entity.Item;
+import com.example.order.util.MenuUtil;
 
 import java.util.Optional;
 
 public class ItemDetailActivity extends AppCompatActivity {
-    private static final String LOG_TAG = "ITEM_DETAIL";
+    public static final String ITEM_ID_KEY = "ITEM_ID_KEY";
+    public static final String FROM_ORDER_LIST_KEY = "FROM_ORDER_LIST_KEY";
     private Item item;
-    private Toast mToast;
     private TextView cntTextView;
     private static final String CNT_TEXT = "已选数量: %d";
 
@@ -28,8 +33,15 @@ public class ItemDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
+
+        ActionBar actionBar = getSupportActionBar();
         Intent intent = getIntent();
-        Optional<Item> itemOptional = Constant.itemList.stream().filter(x -> x.getId() == intent.getIntExtra(ItemListAdapter.ViewHolder.ITEM_ID_KEY, 0)).findAny();
+        boolean fromOrderList = intent.getBooleanExtra(ItemDetailActivity.FROM_ORDER_LIST_KEY, false);
+        if (fromOrderList && actionBar != null) {
+            actionBar.setHomeButtonEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        }
+        Optional<Item> itemOptional = Constant.itemList.stream().filter(x -> x.getId() == intent.getIntExtra(ItemDetailActivity.ITEM_ID_KEY, 0)).findAny();
         if (itemOptional.isPresent()) {
             this.item = itemOptional.get();
             TextView itemDetailNameTextView = findViewById(R.id.item_detail_name);
@@ -37,9 +49,15 @@ public class ItemDetailActivity extends AppCompatActivity {
             TextView itemDetailDescTextView = findViewById(R.id.item_detail_desc);
             itemDetailDescTextView.setText(this.item.getDescription());
             this.cntTextView = findViewById(R.id.item_cnt_text);
-            this.cntTextView.setText(String.format(CNT_TEXT, 0));
+            this.cntTextView.setText(String.format(CNT_TEXT, Constant.itemCntMap.getOrDefault(item.getId(), 0)));
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.cntTextView.setText(String.format(CNT_TEXT, Constant.itemCntMap.getOrDefault(item.getId(), 0)));
     }
 
     @SuppressLint("DefaultLocale")
@@ -66,5 +84,10 @@ public class ItemDetailActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return MenuUtil.onOptionsItemSelected(this, item);
     }
 }
