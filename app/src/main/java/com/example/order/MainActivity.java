@@ -12,14 +12,19 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.order.constant.Constant;
@@ -28,6 +33,7 @@ import com.example.order.entity.ItemSubType;
 import com.example.order.entity.ItemType;
 import com.example.order.util.HttpUtils;
 import com.example.order.util.MenuUtil;
+import com.google.android.material.navigation.NavigationView;
 
 //import org.json.JSONObject;
 
@@ -41,13 +47,57 @@ public class MainActivity extends AppCompatActivity {
     private static final String ITEM_SUB_TYPE_URL = API_URI + "/item-sub-type";
     private static final String ITEM_URL = API_URI + "/item";
 
+
+    private DrawerLayout drawer;
+    private Toolbar toolbar;
+
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar myToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(myToolbar);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        dataInit();
+        drawInit();
+    }
+
+    /**
+     * 抽屉导航栏初始化
+     */
+    private void drawInit() {
+        drawer = findViewById(R.id.main_draw_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_main:
+                        if (drawer.isDrawerOpen(GravityCompat.START)) {
+                            drawer.closeDrawer(GravityCompat.START);
+                        }
+                        break;
+                    case R.id.nav_setting:
+                        startActivity(new Intent(MainActivity.this, SettingActivity.class));
+                        break;
+                    case R.id.nav_feedback:
+                        break;
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
+    }
+
+    /**
+     * 数据初始化
+     */
+    private void dataInit() {
         Handler handler = new MyHandler(Looper.myLooper(), MainActivity.this);
         new Thread(() -> {
             JSONObject res = JSONObject.parseObject(HttpUtils.doGet(ITEM_TYPE_URL));
@@ -74,6 +124,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         Toast.makeText(MainActivity.this, "数据初始化错误", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+
     }
 
     @Override
