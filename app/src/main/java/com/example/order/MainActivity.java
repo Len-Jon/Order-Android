@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(MainActivity.this, SettingActivity.class));
                         break;
                     case R.id.nav_feedback:
+                        startActivity(new Intent(MainActivity.this, FeedbackActivity.class));
                         break;
                     default:
                         break;
