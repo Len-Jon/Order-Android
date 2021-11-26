@@ -46,7 +46,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     private NetworkChangeReceiver networkChangeReceiver;
-    private static final String API_URI = "https://lenjon.top/test";
+    private static final String API_URI = "https://lenjon.top/order";
     private static final String ITEM_TYPE_URL = API_URI + "/item-type";
     private static final String ITEM_SUB_TYPE_URL = API_URI + "/item-sub-type";
     private static final String ITEM_URL = API_URI + "/item";
