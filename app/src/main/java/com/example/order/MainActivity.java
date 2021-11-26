@@ -2,7 +2,10 @@ package com.example.order;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -31,6 +34,7 @@ import com.example.order.constant.Constant;
 import com.example.order.entity.Item;
 import com.example.order.entity.ItemSubType;
 import com.example.order.entity.ItemType;
+import com.example.order.receiver.NetworkChangeReceiver;
 import com.example.order.util.HttpUtils;
 import com.example.order.util.MenuUtil;
 import com.google.android.material.navigation.NavigationView;
@@ -41,7 +45,7 @@ import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
-
+    private NetworkChangeReceiver networkChangeReceiver;
     private static final String API_URI = "https://lenjon.top/test";
     private static final String ITEM_TYPE_URL = API_URI + "/item-type";
     private static final String ITEM_SUB_TYPE_URL = API_URI + "/item-sub-type";
@@ -60,6 +64,13 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         dataInit();
         drawInit();
+
+        networkChangeReceiver = new NetworkChangeReceiver();
+        IntentFilter filter = new IntentFilter();
+        //为了演示效果，所以用添加了一个wifi的开启与关闭的改变
+        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        registerReceiver(networkChangeReceiver, filter);
     }
 
     /**
