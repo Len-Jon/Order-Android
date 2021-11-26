@@ -26,6 +26,6 @@ public class MenuUtil {
             default:
                 break;
         }
-        return true;
+        return false;
     }
 }
