@@ -12,6 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Order">
         <activity
+            android:name=".SearchActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:launchMode="singleTop"
+                android:value="com.example.order.MainActivity" />
+        </activity>
+        <activity
             android:name=".SettingActivity"
             android:exported="true">
             <meta-data
@@ -24,11 +32,13 @@
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
+                android:launchMode="singleTop"
                 android:value="com.example.order.OrderListActivity" />
         </activity>
         <activity
             android:name=".OrderListActivity"
-            android:exported="true" />
+            android:exported="true">
+        </activity>
         <activity
             android:name=".ItemDetailActivity"
             android:exported="true">

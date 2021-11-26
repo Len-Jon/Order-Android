@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHolder> {
 
-    private final List<Item> itemList;
+    private List<Item> itemList;
 
     /**
      * Provide a reference to the type of views that you are using
@@ -99,5 +99,9 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
 
     public List<Item> getItemList() {
         return itemList;
+    }
+
+    public void setItemList(List<Item> dataset){
+        this.itemList = dataset;
     }
 }
