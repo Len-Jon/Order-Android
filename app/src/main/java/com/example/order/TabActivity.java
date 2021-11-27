@@ -57,6 +57,10 @@ public class TabActivity extends AppCompatActivity {
         return MenuUtil.onOptionsItemSelected(this, item);
     }
 
+    /**
+     * 数据初始化
+     * @param defaultTypeId defaultTypeId
+     */
     private void init(int defaultTypeId) {
         tabLayout = findViewById(R.id.tl_tab);
         viewPager = findViewById(R.id.vp_content);
@@ -72,6 +76,9 @@ public class TabActivity extends AppCompatActivity {
         subTypeIds = subTypes.stream().map(ItemSubType::getId).collect(Collectors.toList());
     }
 
+    /**
+     * 标签页初始化
+     */
     private void initTab() {
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         tabLayout.setTabTextColors(ContextCompat.getColor(this, R.color.white), ContextCompat.getColor(this, R.color.white));
@@ -79,6 +86,9 @@ public class TabActivity extends AppCompatActivity {
         ViewCompat.setElevation(tabLayout, 10);
     }
 
+    /**
+     * pager初始化
+     */
     private void initViewPager() {
         viewPager.setAdapter(new FragmentStateAdapter(this) {
             @NonNull

@@ -23,17 +23,34 @@ import com.example.order.entity.Item;
 
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 购物车列表Fragment适配器
  */
+@Getter
+@Setter
 public class ChosenItemListAdapter extends RecyclerView.Adapter<ChosenItemListAdapter.ViewHolder> {
 
     private List<Item> itemList;
 
     /**
+     * Initialize the dataset of the Adapter.
+     *
+     * @param dataSet String[] containing the data to populate views to be used
+     *                by RecyclerView.
+     */
+    public ChosenItemListAdapter(List<Item> dataSet) {
+        itemList = dataSet;
+    }
+
+    /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
+    @Getter
+    @Setter
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         private final TextView itemNameTextView;
         private final TextView itemCountTextView;
@@ -47,14 +64,6 @@ public class ChosenItemListAdapter extends RecyclerView.Adapter<ChosenItemListAd
             this.itemListAdapter = itemListAdapter;
             view.setOnClickListener(this);
             view.setOnLongClickListener(this);
-        }
-
-        public TextView getItemNameTextView() {
-            return itemNameTextView;
-        }
-
-        public TextView getItemCountTextView() {
-            return itemCountTextView;
         }
 
         @SuppressLint("NonConstantResourceId")
@@ -115,15 +124,6 @@ public class ChosenItemListAdapter extends RecyclerView.Adapter<ChosenItemListAd
         }
     }
 
-    /**
-     * Initialize the dataset of the Adapter.
-     *
-     * @param dataSet String[] containing the data to populate views to be used
-     *                by RecyclerView.
-     */
-    public ChosenItemListAdapter(List<Item> dataSet) {
-        itemList = dataSet;
-    }
 
     // Create new views (invoked by the layout manager)
     @NonNull
@@ -150,13 +150,5 @@ public class ChosenItemListAdapter extends RecyclerView.Adapter<ChosenItemListAd
     @Override
     public int getItemCount() {
         return itemList.size();
-    }
-
-    public List<Item> getItemList() {
-        return itemList;
-    }
-
-    public void setItemList(List<Item> dataset) {
-        itemList = dataset;
     }
 }

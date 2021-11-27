@@ -19,17 +19,35 @@ import com.example.order.util.ImgUtil;
 
 import java.util.List;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 商品列表Fragment适配器
  */
+@Getter
+@Setter
 public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHolder> {
 
     private List<Item> itemList;
 
     /**
+     * Initialize the dataset of the Adapter.
+     *
+     * @param dataSet String[] containing the data to populate views to be used
+     *                by RecyclerView.
+     */
+    public ItemListAdapter(List<Item> dataSet) {
+        itemList = dataSet;
+    }
+
+    /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
+    @Getter
+    @Setter
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView itemNameTextView;
         private final TextView itemDescTextView;
@@ -46,18 +64,6 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
             view.setOnClickListener(this);
         }
 
-        public TextView getItemNameTextView() {
-            return itemNameTextView;
-        }
-
-        public TextView getItemDescTextView() {
-            return itemDescTextView;
-        }
-
-        public ImageView getItemImgView() {
-            return itemImgView;
-        }
-
         @SuppressLint("NonConstantResourceId")
         @Override
         public void onClick(View view) {
@@ -69,15 +75,6 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
         }
     }
 
-    /**
-     * Initialize the dataset of the Adapter.
-     *
-     * @param dataSet String[] containing the data to populate views to be used
-     *                by RecyclerView.
-     */
-    public ItemListAdapter(List<Item> dataSet) {
-        itemList = dataSet;
-    }
 
     // Create new views (invoked by the layout manager)
     @NonNull
@@ -107,13 +104,5 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
     @Override
     public int getItemCount() {
         return itemList.size();
-    }
-
-    public List<Item> getItemList() {
-        return itemList;
-    }
-
-    public void setItemList(List<Item> dataset) {
-        this.itemList = dataset;
     }
 }
