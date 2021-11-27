@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import com.example.order.ItemDetailActivity;
 import com.example.order.R;
 import com.example.order.constant.Constant;
 import com.example.order.entity.Item;
+import com.example.order.util.ImgUtil;
 
 import java.util.List;
 
@@ -31,6 +33,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView itemNameTextView;
         private final TextView itemDescTextView;
+        private final ImageView itemImgView;
         private final ItemListAdapter itemListAdapter;
 
         public ViewHolder(View view, ItemListAdapter itemListAdapter) {
@@ -38,6 +41,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
             // Define click listener for the ViewHolder's View
             itemNameTextView = view.findViewById(R.id.item_name_text_view);
             itemDescTextView = view.findViewById(R.id.item_desc_text_view);
+            itemImgView = view.findViewById(R.id.item_img);
             this.itemListAdapter = itemListAdapter;
             view.setOnClickListener(this);
         }
@@ -48,6 +52,10 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
 
         public TextView getItemDescTextView() {
             return itemDescTextView;
+        }
+
+        public ImageView getItemImgView() {
+            return itemImgView;
         }
 
         @SuppressLint("NonConstantResourceId")
@@ -87,8 +95,12 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.getItemNameTextView().setText(itemList.get(position).getName());
-        viewHolder.getItemDescTextView().setText(itemList.get(position).getDescription());
+        Item item = itemList.get(position);
+        viewHolder.getItemNameTextView().setText(item.getName());
+        viewHolder.getItemDescTextView().setText(item.getDescription());
+        if (item.getPic() != null && !item.getPic().isEmpty()) {
+            viewHolder.getItemImgView().setImageBitmap(ImgUtil.getBitMap(item.getPic()));
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -101,7 +113,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
         return itemList;
     }
 
-    public void setItemList(List<Item> dataset){
+    public void setItemList(List<Item> dataset) {
         this.itemList = dataset;
     }
 }

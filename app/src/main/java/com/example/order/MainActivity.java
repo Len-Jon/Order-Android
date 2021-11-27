@@ -36,6 +36,7 @@ import com.example.order.entity.ItemSubType;
 import com.example.order.entity.ItemType;
 import com.example.order.receiver.NetworkChangeReceiver;
 import com.example.order.util.HttpUtils;
+import com.example.order.util.ImgUtil;
 import com.example.order.util.MenuUtil;
 import com.google.android.material.navigation.NavigationView;
 
@@ -188,8 +189,7 @@ public class MainActivity extends AppCompatActivity {
                     for (int i = 0; i < typeSize; i++) {
                         imageViews[i] = new ImageView(mainActivity);
                         ItemType itemType = Constant.itemTypeList.get(i);
-                        byte[] decodedStr = Base64.decode(itemType.getPic().substring(22), Base64.DEFAULT);
-                        imageViews[i].setImageBitmap(BitmapFactory.decodeByteArray(decodedStr, 0, decodedStr.length));
+                        imageViews[i].setImageBitmap(ImgUtil.getBitMap(itemType.getPic()));
                         imageViews[i].setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                         imageViews[i].setOnClickListener(view -> {
                             Intent intent = new Intent(view.getContext(), TabActivity.class).putExtra(Constant.ITEM_TYPE_ID_KEY, itemType.getId());

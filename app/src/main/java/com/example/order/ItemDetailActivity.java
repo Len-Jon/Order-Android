@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.order.constant.Constant;
 import com.example.order.entity.Item;
+import com.example.order.util.ImgUtil;
 import com.example.order.util.MenuUtil;
 
 import java.util.Optional;
@@ -45,6 +47,10 @@ public class ItemDetailActivity extends AppCompatActivity {
             itemDetailNameTextView.setText(this.item.getName());
             TextView itemDetailDescTextView = findViewById(R.id.item_detail_desc);
             itemDetailDescTextView.setText(this.item.getDescription());
+            if(this.item.getPic() != null && !this.item.getPic().isEmpty()){
+                ImageView itemImgView = findViewById(R.id.item_detail_img);
+                itemImgView.setImageBitmap(ImgUtil.getBitMap(this.item.getPic()));
+            }
             this.cntTextView = findViewById(R.id.item_cnt_text);
             this.cntTextView.setText(String.format(CNT_TEXT, Constant.itemCntMap.getOrDefault(item.getId(), 0)));
         }
