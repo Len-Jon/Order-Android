@@ -99,4 +99,10 @@ public class TabActivity extends AppCompatActivity {
         outState.putInt(BUNDLE_TYPE_ID_KEY, TabActivity.typeId);
         super.onSaveInstanceState(outState);
     }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        TabActivity.typeId =savedInstanceState.getInt(BUNDLE_TYPE_ID_KEY,0);
+    }
 }

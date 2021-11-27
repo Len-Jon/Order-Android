@@ -1,0 +1,145 @@
+.
+|-- app
+|   |-- build.gradle
+|   |-- libs
+|   |-- proguard-rules.pro
+|   `-- src
+|       |-- androidTest
+|       |   `-- java
+|       |       `-- com
+|       |           `-- example
+|       |               `-- order
+|       |                   `-- ExampleInstrumentedTest.java
+|       |-- main
+|       |   |-- AndroidManifest.xml
+|       |   |-- java
+|       |   |   `-- com
+|       |   |       `-- example
+|       |   |           `-- order
+|       |   |               |-- FeedbackActivity.java
+|       |   |               |-- ItemDetailActivity.java
+|       |   |               |-- MainActivity.java
+|       |   |               |-- OrderCheckActivity.java
+|       |   |               |-- OrderListActivity.java
+|       |   |               |-- SearchActivity.java
+|       |   |               |-- SettingActivity.java
+|       |   |               |-- TabActivity.java
+|       |   |               |-- TabFragment.java
+|       |   |               |-- adapter
+|       |   |               |   |-- ChosenItemListAdapter.java
+|       |   |               |   `-- ItemListAdapter.java
+|       |   |               |-- constant
+|       |   |               |   `-- Constant.java
+|       |   |               |-- entity
+|       |   |               |   |-- Item.java
+|       |   |               |   |-- ItemSubType.java
+|       |   |               |   `-- ItemType.java
+|       |   |               |-- receiver
+|       |   |               |   `-- NetworkChangeReceiver.java
+|       |   |               `-- util
+|       |   |                   |-- HttpUtils.java
+|       |   |                   |-- ImgUtil.java
+|       |   |                   `-- MenuUtil.java
+|       |   `-- res
+|       |       |-- drawable
+|       |       |   |-- ic_launcher_background.xml
+|       |       |   `-- juice.png
+|       |       |-- drawable-anydpi
+|       |       |   |-- ic_add.xml
+|       |       |   |-- ic_check.xml
+|       |       |   |-- ic_remove.xml
+|       |       |   |-- ic_search.xml
+|       |       |   |-- ic_settings.xml
+|       |       |   `-- ic_shopping_card.xml
+|       |       |-- drawable-hdpi
+|       |       |   |-- ic_add.png
+|       |       |   |-- ic_check.png
+|       |       |   |-- ic_remove.png
+|       |       |   |-- ic_search.png
+|       |       |   |-- ic_settings.png
+|       |       |   `-- ic_shopping_card.png
+|       |       |-- drawable-mdpi
+|       |       |   |-- ic_add.png
+|       |       |   |-- ic_check.png
+|       |       |   |-- ic_remove.png
+|       |       |   |-- ic_search.png
+|       |       |   |-- ic_settings.png
+|       |       |   `-- ic_shopping_card.png
+|       |       |-- drawable-v24
+|       |       |   `-- ic_launcher_foreground.xml
+|       |       |-- drawable-xhdpi
+|       |       |   |-- ic_add.png
+|       |       |   |-- ic_check.png
+|       |       |   |-- ic_remove.png
+|       |       |   |-- ic_search.png
+|       |       |   |-- ic_settings.png
+|       |       |   `-- ic_shopping_card.png
+|       |       |-- drawable-xxhdpi
+|       |       |   |-- ic_add.png
+|       |       |   |-- ic_check.png
+|       |       |   |-- ic_remove.png
+|       |       |   |-- ic_search.png
+|       |       |   |-- ic_settings.png
+|       |       |   `-- ic_shopping_card.png
+|       |       |-- layout
+|       |       |   |-- activity_feedback.xml
+|       |       |   |-- activity_item_detail.xml
+|       |       |   |-- activity_main.xml
+|       |       |   |-- activity_order_check.xml
+|       |       |   |-- activity_order_list.xml
+|       |       |   |-- activity_search.xml
+|       |       |   |-- activity_setting.xml
+|       |       |   |-- activity_tab.xml
+|       |       |   |-- chosen_item_row.xml
+|       |       |   |-- fragment_tab.xml
+|       |       |   `-- item_row.xml
+|       |       |-- menu
+|       |       |   |-- menu_drawer.xml
+|       |       |   |-- menu_main.xml
+|       |       |   `-- menu_popup.xml
+|       |       |-- mipmap-anydpi-v26
+|       |       |   |-- ic_launcher.xml
+|       |       |   `-- ic_launcher_round.xml
+|       |       |-- mipmap-hdpi
+|       |       |   |-- ic_launcher.webp
+|       |       |   `-- ic_launcher_round.webp
+|       |       |-- mipmap-mdpi
+|       |       |   |-- ic_launcher.webp
+|       |       |   `-- ic_launcher_round.webp
+|       |       |-- mipmap-xhdpi
+|       |       |   |-- ic_launcher.webp
+|       |       |   `-- ic_launcher_round.webp
+|       |       |-- mipmap-xxhdpi
+|       |       |   |-- ic_launcher.webp
+|       |       |   `-- ic_launcher_round.webp
+|       |       |-- mipmap-xxxhdpi
+|       |       |   |-- ic_launcher.webp
+|       |       |   `-- ic_launcher_round.webp
+|       |       |-- values
+|       |       |   |-- array.xml
+|       |       |   |-- colors.xml
+|       |       |   |-- ids.xml
+|       |       |   |-- strings.xml
+|       |       |   `-- themes.xml
+|       |       `-- values-night
+|       |           `-- themes.xml
+|       `-- test
+|           `-- java
+|               `-- com
+|                   `-- example
+|                       `-- order
+|                           `-- ExampleUnitTest.java
+|-- build.gradle
+|-- gradle
+|   `-- wrapper
+|       |-- gradle-wrapper.jar
+|       `-- gradle-wrapper.properties
+|-- gradle.properties
+|-- gradlew
+|-- gradlew.bat
+|-- local.properties
+|-- lombok.config
+|-- settings.gradle
+`-- tree.tree
+
+43 directories, 99 files
